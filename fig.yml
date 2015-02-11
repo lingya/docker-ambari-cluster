@@ -1,0 +1,41 @@
+console:
+   links:
+     - node1
+     - node2
+     - node3
+   ports:
+     - "50020:50020"
+     - "50090:50090"
+     - "50070:50070"
+     - "50010:50010"
+     - "50075:50075"
+     - "50030:50030"
+     - "50111:50111"
+     - "8021:8021"
+     - "8080:8080"
+     - "8020:8020"
+     - "8088:8088"
+     - "8000:8000"
+     - "8888:8888"
+   image: ambari:1.7
+   command: /etc/bootstrap.sh -d
+   hostname: ambari
+   domainname: luck.com
+
+node1:
+   image: ambari:node
+   hostname: node1
+   domainname: luck.com
+   command: /etc/bootstrap.sh -d
+
+node2:
+   image: ambari:node
+   hostname: node2
+   domainname: luck.com
+   command: /etc/bootstrap.sh -d
+
+node3:
+   image: ambari:node
+   hostname: node3
+   domainname: luck.com
+   command: /etc/bootstrap.sh -d
