@@ -1,2 +1,2 @@
 # docker-ambari-cluster
-Docker Ambari Cluster
+IN PROGRESS - Docker Ambari Cluster
