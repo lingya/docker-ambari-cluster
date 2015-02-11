@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo docker rmi -f ambari:1.7
+sudo docker build --rm --no-cache -t ambari:1.7 .
