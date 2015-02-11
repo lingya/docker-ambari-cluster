@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo docker run -i -t -P -p 2122:2122 --name node -h node.luck.com ambari:node /etc/bootstrap.sh -bash

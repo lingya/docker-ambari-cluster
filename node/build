@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo docker rmi -f ambari:node
+sudo docker build --rm --no-cache -t ambari:node .
