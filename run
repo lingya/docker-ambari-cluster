@@ -12,15 +12,19 @@ sudo docker rmi -f $(sudo docker images -q --filter "dangling=true")
 #sudo docker run -d -P --link node1:node1.luck.com --link node2:node2.luck.com --link node3:node3.luck.com --name ambari -h ambari.luck.com ambari:1.7 /etc/bootstrap.sh -d
 #sudo docker run -d -P --name ambari -h ambari.luck.com ambari:1.7 /etc/bootstrap.sh -d
 
-sudo docker run -d -p 2122:2122 -p 4080:4080 -p 50010:50010 -p 50020:50020 -p 50030:50030 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 50111:50111 -p 8000:8000 -p 8020:8020 -p 8021:8021 -p 8080:8080 -p 8088:8088 -p 8043:8043 -p 8670:8670 -p 8888:8888 --name ambari -h ambari.luck.com ambari:1.7 /etc/bootstrap.sh -d
+sudo docker run -d --privileged=true -p 2122:2122 -p 4080:4080 -p 50010:50010 -p 50020:50020 -p 50030:50030 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 50111:50111 -p 8000:8000 -p 8020:8020 -p 8021:8021 -p 8080:8080 -p 8088:8088 -p 8043:8043 -p 8670:8670 -p 8888:8888 --name ambari -h ambari.luck.com ambari:1.7 /etc/bootstrap.sh -d
+
+sudo docker run -d --privileged=true --link ambari:ambari.luck.com --name node1 -h node1.luck.com ambari:node /etc/bootstrap.sh -d
+sudo docker run -d --privileged=true --link ambari:ambari.luck.com --name node2 -h node2.luck.com ambari:node /etc/bootstrap.sh -d
+sudo docker run -d --privileged=true --link ambari:ambari.luck.com --name node3 -h node3.luck.com ambari:node /etc/bootstrap.sh -d
 
 
-DNS_SERVER="$(sudo docker exec ambari /bin/hostname -i)"
-echo "Configuring node DNS to $DNS_SERVER"
+#DNS_SERVER="$(sudo docker exec ambari /bin/hostname -i)"
+#echo "Configuring node DNS to $DNS_SERVER"
 
-sudo docker run -d --link ambari:ambari.luck.com --name node1 -h node1.luck.com --dns $DNS_SERVER ambari:node /etc/bootstrap.sh -d
-sudo docker run -d --link ambari:ambari.luck.com --name node2 -h node2.luck.com --dns $DNS_SERVER ambari:node /etc/bootstrap.sh -d
-sudo docker run -d --link ambari:ambari.luck.com --name node3 -h node3.luck.com --dns $DNS_SERVER ambari:node /etc/bootstrap.sh -d
+#sudo docker run -d --privileged=true --link ambari:ambari.luck.com --name node1 -h node1.luck.com --dns $DNS_SERVER ambari:node /etc/bootstrap.sh -d
+#sudo docker run -d --privileged=true --link ambari:ambari.luck.com --name node2 -h node2.luck.com --dns $DNS_SERVER ambari:node /etc/bootstrap.sh -d
+#sudo docker run -d --privileged=true --link ambari:ambari.luck.com --name node3 -h node3.luck.com --dns $DNS_SERVER ambari:node /etc/bootstrap.sh -d
 
 
 #sudo docker run -d --name node1 -h node1.luck.com ambari:node /etc/bootstrap.sh -d

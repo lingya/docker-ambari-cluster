@@ -19,13 +19,13 @@ service ntpd start
 service sshd start
 
 #dnsMask
-service dnsmask start
+#service dnsmask start
 
 # start ambari
 /usr/sbin/ambari-server start
 
 #start ambari agent
-#/usr/sbin/ambari-agent start
+/usr/sbin/ambari-agent start
 
 if [[ $1 = "-d" ]]; then
   while true; do sleep 1000; done

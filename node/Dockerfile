@@ -32,22 +32,23 @@ RUN rm jdk-7u71-linux-x64.rpm
 ENV JAVA_HOME /usr/java/default
 ENV PATH $PATH:$JAVA_HOME/bin
 
+# fix the 254 error code
+RUN sed  -i "/^[^#]*UsePAM/ s/.*/#&/"  /etc/ssh/sshd_config
+RUN echo "UsePAM no" >> /etc/ssh/sshd_config
+RUN echo "Port 2122" >> /etc/ssh/sshd_config
+
 # ambari
 RUN wget -O /etc/yum.repos.d/ambari.repo http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.7.0/ambari.repo
 #RUN yum -y install ambari-agent
 #ADD ambari-agent.ini /etc/ambari-agent/conf/ambari-agent.ini
 #RUN echo "PYTHON=/usr/bin/python2.6" >> /var/lib/ambari-agent/ambari-env.sh
 
+# bootstrap config
 ADD bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 
 ENV BOOTSTRAP /etc/bootstrap.sh
-
-# fix the 254 error code
-RUN sed  -i "/^[^#]*UsePAM/ s/.*/#&/"  /etc/ssh/sshd_config
-RUN echo "UsePAM no" >> /etc/ssh/sshd_config
-RUN echo "Port 2122" >> /etc/ssh/sshd_config
 
 EXPOSE 2122 4080 50010 50020 50030 50070 50075 50090 50111 8000 8020 8021 8080 8088 8443 8670 8888
 
