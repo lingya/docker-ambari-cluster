@@ -4,7 +4,7 @@ MAINTAINER Luciano Resende <lresende@apache.org>
 
 USER root
 
-RUN yum install -y curl which tar sudo openssh-server openssh-clients openssl rsync wget #openssl-1.0.1e-16.el6.x86_64
+RUN yum install -y awk curl openssh-server openssh-clients openssl rsync ntpd sudo tar wget which #openssl-1.0.1e-16.el6.x86_64
 RUN yum update -y libselinux
 
 # passwordless ssh
@@ -37,9 +37,9 @@ RUN sed  -i "/^[^#]*UsePAM/ s/.*/#&/"  /etc/ssh/sshd_config
 RUN echo "UsePAM no" >> /etc/ssh/sshd_config
 RUN echo "Port 2122" >> /etc/ssh/sshd_config
 
-# dnsmask
-# RUN yum install -y dnsmasq
-# ADD config /etc
+# dnsmasq
+RUN yum install -y dnsmasq
+ADD config /etc
 
 # ambari
 RUN wget -O /etc/yum.repos.d/ambari.repo http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.7.0/ambari.repo

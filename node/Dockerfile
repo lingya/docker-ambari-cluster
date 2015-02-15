@@ -4,7 +4,7 @@ MAINTAINER Luciano Resende <lresende@apache.org>
 
 USER root
 
-RUN yum install -y curl which tar sudo openssh-server openssh-clients openssl rsync wget
+RUN yum install -y awk curl openssh-server openssh-clients openssl rsync ntpd sudo tar wget which #openssl-1.0.1e-16.el6.x86_64
 RUN yum update -y libselinux
 
 # passwordless ssh

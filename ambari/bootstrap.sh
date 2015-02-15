@@ -19,13 +19,15 @@ service ntpd start
 service sshd start
 
 #dnsMask
-#service dnsmask start
+service dnsmasq start
 
 # start ambari
 /usr/sbin/ambari-server start
 
 #start ambari agent
 /usr/sbin/ambari-agent start
+
+echo "all boostrap commands executed"
 
 if [[ $1 = "-d" ]]; then
   while true; do sleep 1000; done
